@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Assignment5 – Treasure Hunt</title></head>
+<body>
+  <h1>Interactive Treasure Hunt</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+  </form>
+
+  {% if submitted %}
+    <hr>
+    <h2>Number Puzzle</h2>
+    <p>{{ number_result.parity|title }} → {{ number_result.calc_label }} = {{ number_result.calc }}</p>
+
+    <h2>Text Puzzle</h2>
+    <p>Binary: <code>{{ text_result.binary }}</code></p>
+    <p>Vowels: {{ text_result.vowel_count }}</p>
+
+    <h2>Treasure Hunt</h2>
+    <ul>
+      {% for s in treasure_result.steps %}<li>{{ s }}</li>{% endfor %}
+    </ul>
+    <p><strong>{{ treasure_result.win|yesno:"You win!,You lose." }}</strong></p>
+  {% endif %}
+</body>
+</html>
